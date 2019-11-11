@@ -34,3 +34,42 @@ ggplot() +
     xlab('longitude') +
     ylab('latitude')
 ggsave('unsafe-map-travel-ggplot.png', width=6, height=4, dpi=300)
+
+
+
+
+# https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories.html/
+# LEVEL 4:
+
+list.l4 = "Syria,
+Somalia,
+Afghanistan,
+North Korea,
+Iraq,
+Yemen,
+Venezuela,
+South Sudan,
+Mali,
+Libya,
+Iran,Central African Republic"
+l4 = strsplit(list.l4,",")[[1]]
+l4 = gsub('^\\\n','',l4)
+l4.df = data.frame(
+    region = l4
+)
+
+
+ggplot() + 
+    geom_map(data = WorldData, map=WorldData,
+             aes(x = long, y=lat, group = group,
+                 map_id=region),
+             fill = 'white', col='blue', size=0.2) + 
+    geom_map(data = l4.df, map=WorldData,
+             aes(fill='red', map_id=region),
+             colour="#7f7f7f", size=0.5) +
+    theme(legend.position = 'none') +
+    ggtitle('Level 4: Do Not Travel') +
+    xlab('longitude') +
+    ylab('latitude')
+ggsave('Level4-map-travel-ggplot.png', width=6, height=4, dpi=300)
+
