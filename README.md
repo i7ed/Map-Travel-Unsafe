@@ -12,4 +12,4 @@ This code takes the country list and visualizes those countries using the packag
 
 According to the US State Department, level 4 is the highest cautionary travel advisory, updated in November 2019, here is a generated map from the [Level 4](https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories.html/) countries:
 
-![Level 4: Do Not Travel Advisory](Level4-map-travel-ggplot.png)
+![Level 4: Do Not Travel Advisory](Level3or4-map-travel-ggplot.png)

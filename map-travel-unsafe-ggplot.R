@@ -55,7 +55,8 @@ Iran,Central African Republic"
 l4 = strsplit(list.l4,",")[[1]]
 l4 = gsub('^\\\n','',l4)
 l4.df = data.frame(
-    region = l4
+    region = l4,
+    level = 4
 )
 
 
@@ -72,4 +73,47 @@ ggplot() +
     xlab('longitude') +
     ylab('latitude')
 ggsave('Level4-map-travel-ggplot.png', width=6, height=4, dpi=300)
+
+
+
+list.l3 = "Bolivia,
+Nigeria,
+Lebanon,
+Guinea-Bissau,
+Chad,
+Sudan,
+Honduras,
+Burundi,
+Haiti,
+Burkina Faso,
+Pakistan,
+Niger,
+Democratic Republic of the Congo,
+Mauritania"
+l3 = strsplit(list.l3,",")[[1]]
+l3 = gsub('^\\\n','',l3)
+l3.df = data.frame(
+    region = l3,
+    level = 3
+)
+
+l.df = rbind(l4.df, l3.df)
+l.df$level= factor(l.df$level)
+str(l.df)
+
+ggplot() + 
+    geom_map(data = WorldData, map=WorldData,
+             aes(x = long, y=lat, group = group,
+                 map_id=region),
+             fill = 'white', col='blue', size=0.2) + 
+    geom_map(data = l.df, map=WorldData,
+             aes(fill=level, map_id=region),
+             colour="blue",size=0.2) +
+    theme(legend.position = 'none') +
+    ggtitle('Countries with Level 3 or 4 Travel Advisory (2019)') +
+    xlab('longitude') +
+    ylab('latitude')
+ggsave('Level3or4-map-travel-ggplot.png', width=6, height=4, dpi=300)
+
+
 
